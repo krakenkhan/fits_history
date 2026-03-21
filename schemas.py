@@ -58,9 +58,9 @@ class EntryType:
         return f"EntryType('{self.name}', required=[{req}])"
  
  
-# ============================================================
-# THE 13 STANDARD ENTRY TYPES
-# ============================================================
+
+# THE 4 Pre defined STANDARD ENTRY TYPES
+
  
 ORIGIN = EntryType(
     name='ORIGIN',
@@ -72,85 +72,6 @@ ORIGIN = EntryType(
         Field('obs',  'str', False, 'Observer name'),
         Field('date', 'str', False, 'Observation date (ISO 8601)'),
         Field('prog', 'str', False, 'Program/proposal ID'),
-    ]
-)
- 
-DARKSUB = EntryType(
-    name='DARKSUB',
-    description='Dark frame subtraction.',
-    fields=[
-        Field('file',    'str',   True,  'Dark frame filename'),
-        Field('method',  'str',   False, 'Method: median / mean / scaled'),
-        Field('scale',   'float', False, 'Scale factor applied'),
-        Field('exptime', 'float', False, 'Dark frame exposure time (seconds)'),
-    ]
-)
- 
-FLATSUB = EntryType(
-    name='FLATSUB',
-    description='Flat field correction.',
-    fields=[
-        Field('file',   'str',   True,  'Flat field filename'),
-        Field('filter', 'str',   False, 'Filter band used'),
-        Field('method', 'str',   False, 'Method: divide / multiply'),
-        Field('norm',   'float', False, 'Normalization value'),
-    ]
-)
- 
-BIAS = EntryType(
-    name='BIAS',
-    description='Bias subtraction.',
-    fields=[
-        Field('file',    'str', True,  'Bias frame filename'),
-        Field('method',  'str', False, 'Method: median / mean'),
-        Field('nframes', 'int', False, 'Number of frames in master bias'),
-    ]
-)
- 
-SKYSUB = EntryType(
-    name='SKYSUB',
-    description='Sky subtraction.',
-    fields=[
-        Field('method',  'str',   True,  'Method: median / model / offset / polynomial'),
-        Field('level',   'float', False, 'Sky level subtracted (ADU)'),
-        Field('nframes', 'int',   False, 'Number of sky frames used'),
-        Field('file',    'str',   False, 'Sky model filename if applicable'),
-    ]
-)
- 
-STACK = EntryType(
-    name='STACK',
-    description='Image combination / stacking.',
-    fields=[
-        Field('method',  'str',   True,  'Method: median / mean / sigclip / minmax'),
-        Field('nframes', 'int',   True,  'Number of input frames'),
-        Field('reject',  'str',   False, 'Rejection algorithm'),
-        Field('lsigma',  'float', False, 'Lower sigma clipping threshold'),
-        Field('hsigma',  'float', False, 'Upper sigma clipping threshold'),
-        Field('output',  'str',   False, 'Output filename'),
-    ]
-)
- 
-WCSCAL = EntryType(
-    name='WCSCAL',
-    description='World Coordinate System calibration.',
-    fields=[
-        Field('catalog', 'str',   True,  'Reference catalog used'),
-        Field('nstars',  'int',   False, 'Number of matched stars'),
-        Field('rms',     'float', False, 'RMS of fit (arcseconds)'),
-        Field('method',  'str',   False, 'Fitting method'),
-    ]
-)
- 
-PHOTCAL = EntryType(
-    name='PHOTCAL',
-    description='Photometric calibration.',
-    fields=[
-        Field('zp',      'float', True,  'Zero point magnitude'),
-        Field('filter',  'str',   True,  'Filter band'),
-        Field('catalog', 'str',   False, 'Reference catalog'),
-        Field('nstars',  'int',   False, 'Number of standard stars used'),
-        Field('extinct', 'float', False, 'Extinction coefficient'),
     ]
 )
  
@@ -174,31 +95,7 @@ FILTER = EntryType(
         Field('kernel', 'str',   False, 'Custom kernel name or shape'),
         Field('axis',   'str',   False, 'Axis filtered: x / y / both'),
     ]
-)
- 
-COSMIC = EntryType(
-    name='COSMIC',
-    description='Cosmic ray rejection.',
-    fields=[
-        Field('method', 'str',   True,  'Method: lacosmic / dcr / crmedian / manual'),
-        Field('nrej',   'int',   False, 'Number of pixels rejected'),
-        Field('thresh', 'float', False, 'Detection threshold (sigma)'),
-        Field('iter',   'int',   False, 'Number of iterations'),
-    ]
-)
- 
-TRIM = EntryType(
-    name='TRIM',
-    description='Image trimming / cropping.',
-    fields=[
-        Field('x1',     'int', True,  'Start pixel X'),
-        Field('x2',     'int', True,  'End pixel X'),
-        Field('y1',     'int', True,  'Start pixel Y'),
-        Field('y2',     'int', True,  'End pixel Y'),
-        Field('reason', 'str', False, 'Reason for trimming'),
-    ]
-)
- 
+) 
 PARENT = EntryType(
     name='PARENT',
     description='Links to source file(s).',
@@ -216,17 +113,8 @@ PARENT = EntryType(
  
 REGISTRY = {
     'ORIGIN':  ORIGIN,
-    'DARKSUB': DARKSUB,
-    'FLATSUB': FLATSUB,
-    'BIAS':    BIAS,
-    'SKYSUB':  SKYSUB,
-    'STACK':   STACK,
-    'WCSCAL':  WCSCAL,
-    'PHOTCAL': PHOTCAL,
     'SOFTWARE': SOFTWARE,
     'FILTER':  FILTER,
-    'COSMIC':  COSMIC,
-    'TRIM':    TRIM,
     'PARENT':  PARENT,
 }
  

@@ -31,9 +31,10 @@ HISTORY ## KEY=value KEY=value  (continuation)
 ```
 
 - `#` at column 9 signals a machine-readable entry
-- `##` signals a continuation of the previous entry
+- “##” makes the card a continuation of the previous machine-readable entry
 - The word after `#` is the entry type (uppercase)
 - Keys are uppercase, alphanumeric plus underscore
+- Data in every data Entry is a number of Key/Value pairs
 - Values with spaces are wrapped in single quotes: `KEY='some value'`
 - Values without spaces are unquoted: `KEY=3.14`
 - Every card is exactly 80 characters (standard FITS)
@@ -43,7 +44,7 @@ HISTORY ## KEY=value KEY=value  (continuation)
 
 ## Supported Entry Types
 
-The standard defines 13 entry types. Each has required fields and optional fields.
+The standard defines 4 entry types. Each has required fields and optional fields.
 To look into them look at ([Documentation](https://github.com/krakenkhan/fits_history/blob/main/DOCUMENTATION.md))
 
 ---
