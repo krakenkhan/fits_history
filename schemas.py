@@ -250,3 +250,21 @@ def register_entry_type(entry_type):
             f"Use a different name for custom types."
         )
     REGISTRY[entry_type.name] = entry_type
+    
+    
+# The 13 built-in types that cannot be deleted
+BUILTIN_TYPES = set(REGISTRY.keys())
+
+
+def unregister_entry_type(name):
+    """ Remove a custom entry type from the registry. """
+    name = name.upper()
+    if name in BUILTIN_TYPES:
+        raise ValueError(
+            f"Cannot remove built-in entry type '{name}'."
+        )
+    if name not in REGISTRY:
+        raise KeyError(
+            f"Entry type '{name}' not found in the registry."
+        )
+    del REGISTRY[name]
