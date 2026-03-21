@@ -1,4 +1,4 @@
-The Following are the pre-built entry types
+# The Following are the pre-built entry types
 
 ### #ORIGIN — Where the raw data came from
 

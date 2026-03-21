@@ -44,7 +44,7 @@ HISTORY ## KEY=value KEY=value  (continuation)
 ## Supported Entry Types
 
 The standard defines 13 entry types. Each has required fields and optional fields.
-To look into them look at (git)
+To look into them look at ([Documentation](https://github.com/krakenkhan/fits_history/blob/main/DOCUMENTATION.md))
 
 ---
 
