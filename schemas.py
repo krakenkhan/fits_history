@@ -140,7 +140,7 @@ def register_entry_type(entry_type):
     REGISTRY[entry_type.name] = entry_type
     
     
-# The 13 built-in types that cannot be deleted
+# The 4 built-in types that cannot be deleted
 BUILTIN_TYPES = set(REGISTRY.keys())
 
 
