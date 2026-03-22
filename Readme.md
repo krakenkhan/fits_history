@@ -155,7 +155,7 @@ names = list_entry_types()
 
 #### register_entry_type(entry_type)
 
-Register a custom entry type for use cases not covered by the 13 defaults.
+Register a custom entry type for use cases not covered by the 4 defaults.
 
 ```python
 from fits_history.schemas import register_entry_type, EntryType, Field
