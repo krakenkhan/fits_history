@@ -11,7 +11,7 @@ A Python library that defines and implements a standard for writing structured, 
 Copy the `fits_history/` package folder into your project or add it to your Python path. Requires Python 3.7+. Also requires the open source package ([`astropy`](https://docs.astropy.org/en/stable/install.html)).
 
 ```
-your_project/
+project/
 ├── fits_history/
 │   ├── __init__.py
 │   ├── schemas.py
@@ -53,18 +53,18 @@ To look into them look at ([Documentation](https://github.com/krakenkhan/fits_hi
 
 ### schemas.py
 
-The schema registry. Defines all 13 entry types and their fields. This is the single source of truth that the parser, writer, and validator all reference.
+The schema registry. Defines all 4 entry types and their fields. This is the single source of truth that the parser, writer, and validator all reference.
 
-#### Field(name, dtype, required, description)
+#### Field(name, data_type, required, description)
 
-Defines a single field within an entry type.
+Definition of a field class within an entry type.
 
 ```python
 from fits_history.schemas import Field
 
 f = Field('file', 'str', True, 'Dark frame filename')
 
-f.name          # 'FILE' (auto-uppercased)
+f.name          # 'FILE' (uppercase)
 f.dtype         # 'str'
 f.required      # True
 f.description   # 'Dark frame filename'
@@ -72,16 +72,16 @@ f.description   # 'Dark frame filename'
 
 **Parameters:**
 
-- `name` (str) — Field name. Automatically converted to uppercase.
+- `name` (str) — Field name. Uppercase.
 - `dtype` (str) — Expected type: `'str'`, `'int'`, or `'float'`.
-- `required` (bool) — Whether this field must be present for a valid entry.
-- `description` (str) — Human-readable description.
+- `required` (bool)
+- `description` (str)
 
 ---
 
 #### EntryType(name, description, fields)
 
-Defines a schema which is a particular type of entry with its collection of fields.
+A schema for a particular type of entry with its collection of fields objects.
 
 ```python
 from fits_history.schemas import EntryType, Field
@@ -105,28 +105,28 @@ my_type.fields            # {'METHOD': Field(...), 'PIXSCALE': Field(...)}
 
 **Parameters:**
 
-- `name` (str) — Entry type name. Automatically converted to uppercase. Max 8 characters recommended.
+- `name` (str) — Entry type name.
 - `description` (str) — What this entry type represents.
 - `fields` (list of Field) — The fields this entry type accepts.
 
 **Properties:**
 
-- `required_fields` — List of field names that are required.
-- `optional_fields` — List of field names that are optional.
-- `all_field_names` — List of all recognized field names.
+- `required_fields`
+- `optional_fields`
+- `all_field_names`
 
 ---
 
 #### get_schema(entry_type_name)
 
-Look up an entry type by name.
+Look up an entry type by its name.
 
 ```python
 from fits_history.schemas import get_schema
 
 schema = get_schema('DARKSUB')    # Returns EntryType object
-schema = get_schema('darksub')    # Case insensitive — same result
-schema = get_schema('BOGUS')      # Returns None
+schema = get_schema('darksub')    # Case insensitive
+schema = get_schema('BOGUS')      # Returns None if not present
 ```
 
 **Parameters:**
@@ -179,18 +179,18 @@ register_entry_type(custom)
 
 ---
 
-#### unregister_entry_type(name)
+#### unregister_entry_type(entry_type_name)
 
 Unregister a custom entry type.
 
 ```python
 from fits_history.schemas import unregister_entry_type
-unregister_entry_type('RESAMP')
+unregister_entry_type(entry_type_name)
 ```
 
 **Parameters:**
 
-- `name` (EntryType.name) — The custom entry type name to be unregistered.
+- `name` (entry_type_name) — The custom entry type name to be unregistered.
 
 ---
 
@@ -230,7 +230,7 @@ entry.get('MISSING', 'default') # 'default'
 
 #### parse_card(card_text)
 
-Parse a single HISTORY card string.
+Parse a single HISTORY card string into key=value pairs.
 
 ```python
 from fits_history.parser import parse_card
